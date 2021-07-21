@@ -17,6 +17,16 @@
 - 네이버 네트워크 송수신 흐름에 있어서 JSESSIONID, APPLICATION_KEY 등을 지속적으로 업데이트 해야 한다.
 - 결론적으로, popup switch를 통해 기록해두었던 request를 보낼 때, 코드 상 response를 사용하는 것이 아닌, 브라우저가 response를 처리하면서 header 내 Set-Cookie를 이용하자.  
 
+&nbsp;
+
+## 개인 정보로 인증 후 결과 확인 불가
+![image](https://user-images.githubusercontent.com/39409255/126444105-527a49ab-90cb-481f-854f-03dabbb25693.png)
+
+- result를 받기 위해 보내는 요청의 body가 raw를 key로 Array(1) value에 내부에는 {bytes: ArrayBuffer(91)} 형태로 되어 있다.
+- 매크로 저장을 위해서 이 요청 body를 저장하려고 했는데, serialize가 되지 않아 string 변환 후 저장을 해야 했다.
+- 하지만 매크로 실행하는 과정에서 string을 다시 ArrayBuffer로 만들면, 원 값과 달라져 결국 실패.
+
+**근데 오늘 다시 확인해보니, ArrayBuffer가 아닌 String으로 잘 들어있는 것이 아닌가...**
 
 &nbsp;
 
