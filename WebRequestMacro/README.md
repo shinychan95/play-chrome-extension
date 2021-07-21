@@ -26,7 +26,10 @@
 - 매크로 저장을 위해서 이 요청 body를 저장하려고 했는데, serialize가 되지 않아 string 변환 후 저장을 해야 했다.
 - 하지만 매크로 실행하는 과정에서 string을 다시 ArrayBuffer로 만들면, 원 값과 달라져 결국 실패.
 
+&nbsp;
+
 **근데 오늘 다시 확인해보니, ArrayBuffer가 아닌 String으로 잘 들어있는 것이 아닌가...**
+![image](https://user-images.githubusercontent.com/39409255/126444340-36dbef8f-09e9-45f9-a077-7f83dd78bf81.png)
 
 &nbsp;
 
