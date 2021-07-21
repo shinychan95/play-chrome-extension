@@ -1,10 +1,12 @@
 # play-chrome-extension
 
-GettingStartedExample
+### GettingStartedExample
 - chrome extension 공식 문서 내 getting started이다.
 - manifest 3 기준이다.
 
-WebRequestMacro
+&nbsp;
+
+### WebRequestMacro
 - 네이버 지원 결과 확인까지 매번 개인 정보를 입력하기 귀찮아서 만들어본 매크로다.
 - 전체적인 동작 과정은,
   1. 기록한 시작 지점에서 스위치를 킨다.
