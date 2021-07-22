@@ -70,14 +70,3 @@
 
 1. 네이버 채용 결과 자동 확인
 2. 사용자가 원하는 시작 지점부터 종료 지점까지 네트워크 송수신 매크로 생성 마지막 네트워크 결과 반환
-
-
-&applId=afgpE3s2joM8nvR0taANjlprTIT8r6bj-VLcEq2aRGc=
-&annoId=20005623
-&classId=170
-&jobId=7056
-
-applId: afgpE3s2joM8nvR0taANjlprTIT8r6bj-VLcEq2aRGc=
-annoId: 20005623
-classId: 170
-jobId: 7056
