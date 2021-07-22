@@ -1,6 +1,7 @@
 let switchBgrd = document.getElementById("switchBgrd");
 let switchMacro = document.getElementById("switchMacro");
 let runMacro = document.getElementById("runMacro");
+let checkMacro = document.getElementById("checkMacro");
 
 chrome.storage.sync.get("macro", ({ macro }) => {
   document.getElementById('switchMacro').checked = macro;
@@ -53,6 +54,10 @@ runMacro.addEventListener("click", async () => {
             headers.append("Cookie", cookieStr);
           });
 
+
+          // TODO: 저장된 requestBody의 format을 보고 body에 데이터를 넣을지 params로 할지
+          //       body에 넣는 경우 fetch API로 params의 경우 XMLHttpRequest 객체로 해야 한다.
+          //       현재 코드는 제대로 동작하지 않는 코드.
           if (requestBodys[i].hasOwnProperty("raw")) {
             var stringBuffer = requestBodys[i].raw[0].bytes;
             var buf = new ArrayBuffer(stringBuffer.length);
@@ -60,6 +65,10 @@ runMacro.addEventListener("click", async () => {
             for (var w = 0, strLen=stringBuffer.length; w < strLen; w++) {
               bufView[w] = stringBuffer.charCodeAt(w);
             }
+
+            console.log(buf);
+            console.log(bufView);
+            
             requestBodys[i].raw[0].bytes = buf;
           }
 
@@ -68,6 +77,21 @@ runMacro.addEventListener("click", async () => {
         } 
       });
     });
+  });
+});
+
+checkMacro.addEventListener("click", () => {
+  chrome.storage.sync.get("requestURLs", async ({ requestURLs }) => {
+    console.log(requestURLs);
+  });
+  chrome.storage.sync.get("requestHeaders", async ({ requestHeaders }) => {
+    console.log(requestHeaders);
+  });
+  chrome.storage.sync.get("requestBodys", async ({ requestBodys }) => {
+    console.log(requestBodys);
+  });
+  chrome.storage.sync.get("cookies", async ({ cookies }) => {
+    console.log(cookies);
   });
 });
 

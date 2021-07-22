@@ -13,8 +13,8 @@ chrome.runtime.onInstalled.addListener(() => {
 
 
 let onBeforeRequestListener = function (details) {
-  console.log(details);
-
+  // console.log(details);
+  
   chrome.storage.sync.get("macro", ({ macro }) => {
     if (macro && isTargetRequest(details)) {
       chrome.storage.sync.get("requestURLs", ({ requestURLs }) => {
@@ -23,39 +23,24 @@ let onBeforeRequestListener = function (details) {
       });
 
       chrome.storage.sync.get("requestBodys", ({ requestBodys }) => {        
-        let body = {};
         
         if (details.requestBody.raw) {
-          console.log(details.requestBody.raw);
+          // NOTE: String.fromCharCode() 메서드는 UTF-16 코드 유닛의 시퀀스로부터 문자열을 생성해 반환합니다.
+          //       UTF16은 2바이트를 코드유닛으로 사용한다.
           let stringBuffer = String.fromCharCode.apply(null, new Uint8Array(details.requestBody.raw[0].bytes));
-          
           details.requestBody.raw[0].bytes = stringBuffer;
-          // let formData = new FormData();
-
-          // console.log(strings);
-          // for (var i = 1; i < strings.length; i++) {
-          //   let keyEndIndex = strings[i].indexOf("=");
-          //   let key = strings[i].slice(0, keyEndIndex);
-          //   let value = strings[i].slice(keyEndIndex + 1, );
-          //   formData.append(key, value);
-          // }
-
-          // for (var key of formData.entries()) {
-          //   console.log(key[0] + ', ' + key[1])
-          // }
-
-          // body["formData"] = formData;
-
-          // let newLength = requestBodys.push(body);
-          // chrome.storage.sync.set({ "requestBodys": requestBodys });
+          
+          // NOTE: ArrayBuffer는 JSON serialize가 되지 않는다.
+          let newLength = requestBodys.push(details.requestBody);
+          chrome.storage.sync.set({ "requestBodys": requestBodys });
         }
-        
-        let newLength = requestBodys.push(details.requestBody);
-        chrome.storage.sync.set({ "requestBodys": requestBodys });
-  
+        else {
+          let newLength = requestBodys.push(details.requestBody);
+          chrome.storage.sync.set({ "requestBodys": requestBodys });
+        }
       });
 
-      // console.log(details);
+      console.log(details);
     }
   });
 
@@ -63,7 +48,7 @@ let onBeforeRequestListener = function (details) {
 };
 
 let onSendHeadersListener = function (details) {
-  console.log(details);
+  // console.log(details);
 
   chrome.storage.sync.get("macro", ({ macro }) => {
     if (macro && isTargetRequest(details)) {
@@ -80,7 +65,7 @@ let onSendHeadersListener = function (details) {
 };
 
 let onResponseStartedListener = function (details) {
-  console.log(details);
+  // console.log(details);
 
   // TODO: Set-Cookie 내 key-value 값 추가 혹은 업데이트
   chrome.storage.sync.get("macro", ({ macro }) => {
